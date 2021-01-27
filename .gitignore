@@ -7,6 +7,12 @@
 *.fls
 *.out
 *.toc
+*.bbl
+*.blg
+*.fdb_latexmk
+*.xml
+*.bib
+*.xdv 
 
 ## Intermediate documents:
 *.dvi
@@ -20,4 +26,5 @@
 ### Mac OS X ###
 ## Mac OS X metadata files:
 *.DS_Store
+
 

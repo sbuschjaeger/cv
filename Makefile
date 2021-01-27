@@ -1,22 +1,15 @@
-.PHONY: examples
+CV = $(shell find cv -name '*.tex')
+CV_ENG = $(shell find cv_eng -name '*.tex')
 
-CC = xelatex
-EXAMPLES_DIR = examples
-RESUME_DIR = examples/resume
-CV_DIR = examples/cv
-RESUME_SRCS = $(shell find $(RESUME_DIR) -name '*.tex')
-CV_SRCS = $(shell find $(CV_DIR) -name '*.tex')
+.PHONY : all
+.DEFAULT_GOAL := all
+all : cv_short cv_eng cv
 
-examples: $(foreach x, coverletter cv resume, $x.pdf)
+cv_short: cv_short.tex $(CV)
+	latexmk -xelatex cv_short.tex
 
-resume.pdf: $(EXAMPLES_DIR)/resume.tex $(RESUME_SRCS)
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+cv_eng: cv_eng.tex $(CV_ENG)
+	latexmk -xelatex cv_eng.tex
 
-cv.pdf: $(EXAMPLES_DIR)/cv.tex $(CV_SRCS)
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
-
-coverletter.pdf: $(EXAMPLES_DIR)/coverletter.tex
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
-
-clean:
-	rm -rf $(EXAMPLES_DIR)/*.pdf
+cv: cv.tex $(CV)
+	latexmk -xelatex cv.tex
